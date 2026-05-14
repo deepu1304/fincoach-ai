@@ -38,3 +38,8 @@ public class UserService {
                 .build();
     }
 }
+
+public User getCurrentUser(Authentication auth) {
+    String email = auth.getName();
+    return loadUserByUsername(email).getUser();
+}
