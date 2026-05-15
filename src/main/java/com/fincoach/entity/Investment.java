@@ -2,7 +2,7 @@ package com.fincoach.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,14 +21,16 @@ public class Investment {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @NotBlank(message = "Asset type is required")
-    private String assetType; // e.g., "Stock", "Crypto", "Bond"
+    @NotNull(message = "Asset type is required")
+    @Enumerated(EnumType.STRING)
+    private AssetType assetType;
 
     @DecimalMin(value = "0.01", message = "Value must be positive")
     private BigDecimal value;
 
-    @NotBlank(message = "Risk level is required")
-    private String riskLevel; // e.g., "Low", "Medium", "High"
+    @NotNull(message = "Risk level is required")
+    @Enumerated(EnumType.STRING)
+    private RiskLevel riskLevel;
 
     private LocalDate date = LocalDate.now();
 }
